@@ -28,11 +28,11 @@ public class Offer {
     @NotBlank(message = "Offer title cannot be null")
     private String title;
 
-    @NotNull(message = "The start date of the offer cannot be null")
-    @FutureOrPresent(message = "The start date of offer cannot be set in the past")
+    @NotNull(message = "Start date cannot be null")
+    @FutureOrPresent(message = "Start date cannot be set in the past")
     private LocalDate startDate;
 
-    @FutureOrPresent(message = "The end date of offer cannot be set in the past")
+    @FutureOrPresent(message = "Ending date cannot be set in the past")
     private LocalDate endDate;
 
     // # Costruttori

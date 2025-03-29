@@ -25,47 +25,29 @@
         <hr />
 
         <!-- New offer form -->
-        <!-- <form
+        <form
           id="pizza-form"
           method="POST"
-          th:action="@{/pizzas/create}"
+          th:action="@{/offers/create}"
           th:object="${offer}"
           class="row g-3 mt-3"
         >
-          <div class="col-md-6">
-            <label for="name" class="form-label">Name</label>
+          <!-- Pizza hidden data -->
+          <input type="hidden" th:field="*{pizza}" />
+
+          <div class="col-12">
+            <label for="title" class="form-label">Offer title</label>
             <input
               type="text"
               class="form-control"
-              id="name"
-              th:field="*{name}"
+              id="title"
+              th:field="*{title}"
               th:errorClass="is-invalid"
             />
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
               <ul>
                 <li
-                  th:each="error : ${#fields.errors('name')}"
-                  th:text="${error}"
-                ></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="price" class="form-label">Price</label>
-            <input
-              type="number"
-              step="0.01"
-              min="0"
-              class="form-control"
-              id="price"
-              th:field="*{price}"
-              th:errorClass="is-invalid"
-            />
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
-              <ul>
-                <li
-                  th:each="error : ${#fields.errors('price')}"
+                  th:each="error : ${#fields.errors('title')}"
                   th:text="${error}"
                 ></li>
               </ul>
@@ -73,21 +55,21 @@
           </div>
 
           <div class="col-12">
-            <label for="imgUrl" class="form-label">Image Url</label>
+            <label for="startDate" class="form-label">Start date</label>
             <input
-              type="text"
+              type="date"
               class="form-control"
-              id="imgUrl"
-              th:field="*{imgUrl}"
+              id="startDate"
+              th:field="*{startDate}"
               th:errorClass="is-invalid"
             />
             <div
               class="invalid-feedback"
-              th:if="${#fields.hasErrors('imgUrl')}"
+              th:if="${#fields.hasErrors('startDate')}"
             >
               <ul>
                 <li
-                  th:each="error : ${#fields.errors('imgUrl')}"
+                  th:each="error : ${#fields.errors('startDate')}"
                   th:text="${error}"
                 ></li>
               </ul>
@@ -95,20 +77,21 @@
           </div>
 
           <div class="col-12">
-            <label for="description" class="form-label">Description</label>
-            <textarea
+            <label for="endDate" class="form-label">Ending date</label>
+            <input
+              type="date"
               class="form-control"
-              id="description"
-              th:field="*{description}"
+              id="endDate"
+              th:field="*{endDate}"
               th:errorClass="is-invalid"
-            ></textarea>
+            />
             <div
               class="invalid-feedback"
-              th:if="${#fields.hasErrors('description')}"
+              th:if="${#fields.hasErrors('endDate')}"
             >
               <ul>
                 <li
-                  th:each="error : ${#fields.errors('description')}"
+                  th:each="error : ${#fields.errors('endDate')}"
                   th:text="${error}"
                 ></li>
               </ul>
@@ -116,9 +99,9 @@
           </div>
 
           <div class="mt-4">
-            <button type="submit" class="btn btn-success">Add new pizza</button>
+            <button type="submit" class="btn btn-success">Add offer</button>
           </div>
-        </form> -->
+        </form>
       </main>
     </div>
 
