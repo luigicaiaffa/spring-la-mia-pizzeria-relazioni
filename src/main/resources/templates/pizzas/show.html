@@ -48,6 +48,13 @@
                 <div class="card-footer d-flex justify-content-end gap-2">
                   <div>
                     <a
+                      th:href="@{/pizzas/{id}/offer(id = *{id})}"
+                      class="btn btn-sm btn-outline-secondary"
+                      >Add Offer</a
+                    >
+                  </div>
+                  <div>
+                    <a
                       th:href="@{/pizzas/edit/{id}(id = *{id})}"
                       class="btn btn-sm btn-secondary"
                       >&#9998;</a
@@ -56,7 +63,7 @@
                   <div>
                     <th:block
                       th:replace="~{fragments/fragments :: deleteModal}"
-                    ></th:block>
+                    />
                   </div>
                 </div>
               </div>
@@ -71,6 +78,8 @@
                   <th scope="col">Offer</th>
                   <th scope="col">Starting date</th>
                   <th scope="col">Ending date</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -78,6 +87,8 @@
                   <td>[[*{title}]]</td>
                   <td>[[*{startDate}]]</td>
                   <td>[[*{endDate}]]</td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>

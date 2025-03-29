@@ -18,7 +18,9 @@
           </div>
 
           <div>
-            <a class="btn btn-dark" th:href="@{/pizzas}">Back to list</a>
+            <a class="btn btn-dark" th:href="@{/pizzas/{id}(id = ${pizzaId})}"
+              >Back to pizza</a
+            >
           </div>
         </div>
 
@@ -32,7 +34,6 @@
           th:object="${offer}"
           class="row g-3 mt-3"
         >
-          <!-- Pizza hidden data -->
           <input type="hidden" th:field="*{pizza}" />
 
           <div class="col-12">
