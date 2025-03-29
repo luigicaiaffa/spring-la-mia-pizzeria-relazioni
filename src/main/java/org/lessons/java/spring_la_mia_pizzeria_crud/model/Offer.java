@@ -1,6 +1,7 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,4 +36,66 @@ public class Offer {
     @FutureOrPresent(message = "The end date of offer cannot be set in the past")
     private LocalDate endDate;
 
+    // # Costruttori
+    public Offer() {
+    }
+
+    public Offer(Pizza pizza, String title, LocalDate startDate) {
+        this.pizza = pizza;
+        this.title = title;
+        this.startDate = startDate;
+    }
+
+    public Offer(Pizza pizza, String title, LocalDate startDate, LocalDate endDate) {
+        this.pizza = pizza;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    // # Getter e Setter
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Pizza getPizza() {
+        return this.pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer: " + this.title + "(" + this.startDate + " - " + this.endDate + ")";
+    }
 }
