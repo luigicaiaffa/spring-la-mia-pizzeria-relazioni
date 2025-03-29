@@ -3,6 +3,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,4 +96,12 @@ public class PizzaController {
         return "redirect:/pizzas";
     }
 
+    @GetMapping("/{id}/offer")
+    public String createOffer(@PathVariable Integer id, Model model) {
+        Offer offer = new Offer();
+        offer.setPizza(repository.findById(id).get());
+
+        model.addAttribute("offer", offer);
+        return "offers/create";
+    }
 }

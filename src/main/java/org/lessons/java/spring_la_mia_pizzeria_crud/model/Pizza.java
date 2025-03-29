@@ -108,7 +108,7 @@ public class Pizza {
         return this.offers;
     }
 
-    public void setOffer(List<Offer> offers) {
+    public void setOffers(List<Offer> offers) {
         this.offers = offers;
     }
 

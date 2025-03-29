@@ -1,7 +1,6 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
