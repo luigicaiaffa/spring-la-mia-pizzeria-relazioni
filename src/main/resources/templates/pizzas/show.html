@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>PizzaShow</title>
+
+    <!-- Styles -->
+    <th:block th:replace="~{fragments/fragments :: styles}" />
+  </head>
+  <body>
+    <!-- Header -->
+    <th:block th:replace="~{fragments/fragments :: header}" />
+
+    <div class="container">
+      <main>
+        <div class="d-flex justify-content-between align-items-center mt-5">
+          <div>
+            <h1>[[${pizza.name}]]</h1>
+          </div>
+
+          <div>
+            <a class="btn btn-dark" th:href="@{/pizzas}">Back to list</a>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Pizza Card -->
+        <div th:if="${pizza != null}" th:object="${pizza}">
+          <div class="card">
+            <div class="row g-0">
+              <div class="col-md-5">
+                <img
+                  th:src="@{/img/pizzasplaceholder.jpg}"
+                  class="img-fluid rounded-start"
+                  alt="img"
+                />
+              </div>
+              <div class="col-md-7 d-flex flex-column">
+                <div class="card-body d-flex justify-content-between">
+                  <div>
+                    <h5 class="">Description:</h5>
+                    <p>[[*{description}]]</p>
+                  </div>
+                  <div>
+                    <h5>&#8722; [[*{price}]] &#8364;</h5>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-end gap-2">
+                  <div>
+                    <a
+                      th:href="@{/pizzas/edit/{id}(id = *{id})}"
+                      class="btn btn-sm btn-secondary"
+                      >&#9998;</a
+                    >
+                  </div>
+                  <div>
+                    <th:block
+                      th:replace="~{fragments/fragments :: deleteModal}"
+                    ></th:block>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- error -->
+        <div th:unless="${pizza != null}" class="my-5">
+          <h3>Pizza not in list</h3>
+        </div>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="~{fragments/fragments :: scripts}" />
+  </body>
+</html>

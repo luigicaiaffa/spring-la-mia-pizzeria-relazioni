@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>UpdatePizza</title>
+
+    <!-- Styles -->
+    <th:block th:replace="~{fragments/fragments :: styles}" />
+  </head>
+  <body>
+    <!-- Header -->
+    <th:block th:replace="~{fragments/fragments :: header}" />
+
+    <div class="container">
+      <main>
+        <div class="d-flex justify-content-between align-items-center mt-5">
+          <div>
+            <h1>Edit pizza: [[${pizza.name}]]</h1>
+          </div>
+
+          <div>
+            <a class="btn btn-dark" th:href="@{/pizzas}">Back to list</a>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Edit pizza form -->
+        <form
+          id="pizza-form"
+          method="POST"
+          th:action="@{/pizzas/edit/{id}(id=${pizza.id})}"
+          th:object="${pizza}"
+          class="row g-3 mt-3"
+        >
+          <div class="col-md-6">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              th:field="*{name}"
+              th:errorClass="is-invalid"
+            />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+              <ul>
+                <li
+                  th:each="error : ${#fields.errors('name')}"
+                  th:text="${error}"
+                ></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              class="form-control"
+              id="price"
+              th:field="*{price}"
+              th:errorClass="is-invalid"
+            />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+              <ul>
+                <li
+                  th:each="error : ${#fields.errors('price')}"
+                  th:text="${error}"
+                ></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="imgUrl" class="form-label">Image Url</label>
+            <input
+              type="text"
+              class="form-control"
+              id="imgUrl"
+              th:field="*{imgUrl}"
+              th:errorClass="is-invalid"
+            />
+            <div
+              class="invalid-feedback"
+              th:if="${#fields.hasErrors('imgUrl')}"
+            >
+              <ul>
+                <li
+                  th:each="error : ${#fields.errors('imgUrl')}"
+                  th:text="${error}"
+                ></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              th:field="*{description}"
+              th:errorClass="is-invalid"
+            ></textarea>
+            <div
+              class="invalid-feedback"
+              th:if="${#fields.hasErrors('description')}"
+            >
+              <ul>
+                <li
+                  th:each="error : ${#fields.errors('description')}"
+                  th:text="${error}"
+                ></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button type="submit" class="btn btn-success">Update pizza</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="~{fragments/fragments :: scripts}" />
+  </body>
+</html>
