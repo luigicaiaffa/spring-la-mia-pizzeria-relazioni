@@ -87,7 +87,13 @@
                   <td>[[*{title}]]</td>
                   <td>[[*{startDate}]]</td>
                   <td>[[*{endDate}]]</td>
-                  <td></td>
+                  <td>
+                    <a
+                      th:href="@{/offers/edit/{id}(id = *{id})}"
+                      class="btn btn-sm btn-secondary"
+                      >&#9998;</a
+                    >
+                  </td>
                   <td></td>
                 </tr>
               </tbody>
