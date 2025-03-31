@@ -60,6 +60,33 @@
     </div>
   </th:block>
     
+  <!-- # Delete Offer Modal -->
+  <th:block th:fragment="deleteOfferModal">
+    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${offer.id}">
+      &#128465;
+    </button>
+
+    <div class="modal fade" th:id="'deleteModal' + ${offer.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Deleting offer: [[${offer.title}]]</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete offer [[${offer.title}]]?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+            <form th:action="@{/offers/delete/{id}(id=${offer.id})}" method="POST">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+
   <!-- # Scripts -->
   <th:block th:fragment="scripts">
     <script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
