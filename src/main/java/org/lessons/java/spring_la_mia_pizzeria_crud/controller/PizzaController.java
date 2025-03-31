@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.OfferRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,16 +26,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PizzaController {
 
     @Autowired
-    private PizzaRepository repository;
+    private PizzaRepository pizzasRepository;
+
+    @Autowired
+    private OfferRepository offersRepository;
 
     @GetMapping
     public String index(Model model, @RequestParam(name = "name", required = false) String name) {
         List<Pizza> pizzas;
 
         if (name != null && !name.isEmpty()) {
-            pizzas = repository.findByNameContaining(name);
+            pizzas = pizzasRepository.findByNameContaining(name);
         } else {
-            pizzas = repository.findAll();
+            pizzas = pizzasRepository.findAll();
         }
 
         model.addAttribute("pizzas", pizzas);
@@ -44,7 +48,7 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String show(Model model, @PathVariable("id") Integer id) {
         try {
-            Pizza pizza = repository.findById(id).get();
+            Pizza pizza = pizzasRepository.findById(id).get();
             model.addAttribute("pizza", pizza);
         } catch (NoSuchElementException e) {
             model.addAttribute("pizza", null);
@@ -66,7 +70,7 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             return "/pizzas/create";
         } else {
-            repository.save(formPizza);
+            pizzasRepository.save(formPizza);
             return "redirect:/pizzas";
         }
     }
@@ -74,7 +78,7 @@ public class PizzaController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
-        model.addAttribute("pizza", repository.findById(id).get());
+        model.addAttribute("pizza", pizzasRepository.findById(id).get());
         return "/pizzas/edit";
     }
 
@@ -84,7 +88,7 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             return "/pizzas/edit";
         } else {
-            repository.save(formPizza);
+            pizzasRepository.save(formPizza);
             return "redirect:/pizzas";
         }
     }
@@ -92,14 +96,20 @@ public class PizzaController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
 
-        repository.deleteById(id);
+        Pizza pizza = pizzasRepository.findById(id).get();
+
+        for (Offer offer : pizza.getOffers()) {
+            offersRepository.delete(offer);
+        }
+
+        pizzasRepository.delete(pizza);
         return "redirect:/pizzas";
     }
 
     @GetMapping("/{id}/offer")
     public String createOffer(@PathVariable Integer id, Model model) {
         Offer offer = new Offer();
-        offer.setPizza(repository.findById(id).get());
+        offer.setPizza(pizzasRepository.findById(id).get());
 
         model.addAttribute("offer", offer);
         return "offers/create";
