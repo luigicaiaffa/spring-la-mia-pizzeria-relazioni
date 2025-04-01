@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>PizzasIndex</title>
+    <title>IngredientsIndex</title>
 
     <!-- Styles -->
     <th:block th:replace="~{fragments/fragments :: styles}" />
@@ -52,7 +52,7 @@
                   <td></td>
                   <td><a th:href="@{/ingredients/edit/{id}(id = *{id})}" class="btn btn-sm btn-secondary">&#9998;</a></td>
                   <td>   
-                   <th:block th:replace="~{fragments/fragments :: deleteModal}"></th:block>
+                   <th:block th:replace="~{fragments/fragments :: deleteIngredientModal}"></th:block>
                   </td>
                 </tr>
             </tbody>
