@@ -25,7 +25,7 @@ public class OfferController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/offers/create";
+            return "/offers/create-edit";
         } else {
             offerRepository.save(formOffer);
             return "redirect:/pizzas/" + formOffer.getPizza().getId();
@@ -36,14 +36,18 @@ public class OfferController {
     public String edit(@PathVariable Integer id, Model model) {
         Offer offer = offerRepository.findById(id).get();
 
+        model.addAttribute("edit", true);
         model.addAttribute("offer", offer);
-        return "/offers/edit";
+        return "/offers/create-edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("offer") Offer formOffer,
+            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/offers/edit";
+            model.addAttribute("edit", true);
+            model.addAttribute("offer", offerRepository.findById(id).get());
+            return "/offers/create-edit";
         } else {
             offerRepository.save(formOffer);
             return "redirect:/pizzas/" + formOffer.getPizza().getId();

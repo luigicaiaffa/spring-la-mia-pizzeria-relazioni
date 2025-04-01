@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>CreatePizza</title>
+    <title>CreateOrEditPizza</title>
 
     <!-- Styles -->
     <th:block th:replace="~{fragments/fragments :: styles}" />
@@ -14,7 +14,8 @@
       <main>
         <div class="d-flex justify-content-between align-items-center mt-5">
           <div>
-            <h1>New Pizza</h1>
+            <h1 th:if="${edit}">Update "[[${pizza.name}]]"</h1>
+            <h1 th:unless="${edit}">New Pizza</h1>
           </div>
 
           <div>
@@ -24,11 +25,11 @@
 
         <hr />
 
-        <!-- New pizza form -->
+        <!-- Pizza form -->
         <form
           id="pizza-form"
           method="POST"
-          th:action="@{/pizzas/create}"
+          th:action="${edit} ? @{/pizzas/edit/{id}(id = ${pizza.id})} : @{/pizzas/create}"
           th:object="${pizza}"
           class="row g-3 mt-3"
         >
@@ -116,7 +117,7 @@
           </div>
 
           <div class="mt-4">
-            <button type="submit" class="btn btn-success">Add new pizza</button>
+            <button type="submit" class="btn btn-success">Save</button>
           </div>
         </form>
       </main>

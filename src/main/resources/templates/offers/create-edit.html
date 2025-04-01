@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>CreateOffer</title>
+    <title>CreateOrEditOffer</title>
 
     <!-- Styles -->
     <th:block th:replace="~{fragments/fragments :: styles}" />
@@ -14,7 +14,8 @@
       <main>
         <div class="d-flex justify-content-between align-items-center mt-5">
           <div>
-            <h1>Add offer to pizza "[[${offer.pizza.name}]]"</h1>
+            <h1 th:if="${edit}">Edit offer "[[${offer.title}]]" to pizza "[[${offer.pizza.name}]]"</h1>
+            <h1 th:unless="${edit}">Add offer to pizza "[[${offer.pizza.name}]]"</h1>
           </div>
 
           <div>
@@ -26,11 +27,11 @@
 
         <hr />
 
-        <!-- New offer form -->
+        <!-- Offer form -->
         <form
           id="pizza-form"
           method="POST"
-          th:action="@{/offers/create}"
+          th:action="${edit} ? @{/offers/edit/{id}(id = ${offer.id})} : @{/offers/create}"
           th:object="${offer}"
           class="row g-3 mt-3"
         >
@@ -100,7 +101,7 @@
           </div>
 
           <div class="mt-4">
-            <button type="submit" class="btn btn-success">Add offer</button>
+            <button type="submit" class="btn btn-success">Save</button>
           </div>
         </form>
       </main>
