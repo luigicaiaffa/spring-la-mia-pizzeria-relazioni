@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class OfferController {
 
     @Autowired
-    private OfferRepository repository;
+    private OfferRepository offerRepository;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/offers/create";
         } else {
-            repository.save(formOffer);
+            offerRepository.save(formOffer);
             return "redirect:/pizzas/" + formOffer.getPizza().getId();
         }
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        Offer offer = repository.findById(id).get();
+        Offer offer = offerRepository.findById(id).get();
 
         model.addAttribute("offer", offer);
         return "/offers/edit";
@@ -45,7 +45,7 @@ public class OfferController {
         if (bindingResult.hasErrors()) {
             return "/offers/edit";
         } else {
-            repository.save(formOffer);
+            offerRepository.save(formOffer);
             return "redirect:/pizzas/" + formOffer.getPizza().getId();
         }
     }
@@ -53,9 +53,9 @@ public class OfferController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
 
-        Offer offer = repository.findById(id).get();
+        Offer offer = offerRepository.findById(id).get();
 
-        repository.delete(offer);
+        offerRepository.delete(offer);
         return "redirect:/pizzas/" + offer.getPizza().getId();
     }
 
