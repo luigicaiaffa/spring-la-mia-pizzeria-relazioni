@@ -40,7 +40,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Description</th>
+                <th scope="col">Ingredients</th>
                 <th scope="col">Image Url</th>
                 <th scope="col">Price</th>
                 <th></th>
@@ -52,7 +52,11 @@
                 <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
                   <th scope="row">[[*{id}]]</th>
                   <td>[[*{name}]]</td>
-                  <td>[[*{description}]]</td>
+                  <td>
+                    <div class="d-flex" th:each="ingredient : *{ingredients}">
+                      <span>[[${ingredient.name}]]</span>
+                    </div>
+                  </td>
                   <td><a class="img-link" th:href="@{/img/pizzasplaceholder.jpg}">[[*{imgUrl}]]</a></td>
                   <td>[[*{price}]] &#8364;</td>
                   <td><a th:href="@{/pizzas/{id}(id = *{id})}" class="btn btn-sm btn-secondary">&#128065;</a></td>

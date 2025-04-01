@@ -49,7 +49,7 @@
                 <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
                   <th scope="row">[[*{id}]]</th>
                   <td>[[*{name}]]</td>
-                  <td></td>
+                  <td>[[*{pizzas.size()}]]</td>
                   <td><a th:href="@{/ingredients/edit/{id}(id = *{id})}" class="btn btn-sm btn-secondary">&#9998;</a></td>
                   <td>   
                    <th:block th:replace="~{fragments/fragments :: deleteIngredientModal}"></th:block>

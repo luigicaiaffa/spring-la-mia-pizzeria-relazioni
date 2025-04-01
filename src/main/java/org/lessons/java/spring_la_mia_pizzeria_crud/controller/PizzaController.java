@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.IngredientRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.OfferRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class PizzaController {
 
     @Autowired
     private OfferRepository offerRepository;
+
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     @GetMapping
     public String index(Model model, @RequestParam(name = "name", required = false) String name) {
@@ -61,6 +65,7 @@ public class PizzaController {
     public String create(Model model) {
 
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         return "/pizzas/create-edit";
     }
 
@@ -68,6 +73,7 @@ public class PizzaController {
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepository.findAll());
             return "/pizzas/create-edit";
         } else {
             pizzaRepository.save(formPizza);
@@ -80,6 +86,7 @@ public class PizzaController {
 
         model.addAttribute("edit", true);
         model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         return "/pizzas/create-edit";
     }
 
@@ -90,6 +97,7 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("edit", true);
             model.addAttribute("pizza", pizzaRepository.findById(id).get());
+            model.addAttribute("ingredients", ingredientRepository.findAll());
             return "/pizzas/create-edit";
         } else {
             pizzaRepository.save(formPizza);

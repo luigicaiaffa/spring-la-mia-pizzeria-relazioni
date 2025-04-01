@@ -73,57 +73,70 @@
             </div>
           </div>
 
+          <div class="form-label">Ingredients <a th:href="@{/ingredients/create}" class="btn btn-sm btn-light">&#43;</a></div>
+          <div class="col-12" id="ingredients-check">
+            <div th:if="${ingredients.size() != 0}" class="form-check" th:each="ingredient : ${ingredients}">
+              <input class="form-check-input" type="checkbox" th:id="|ingredient-${ingredient.id}|" th:field="${pizza.ingredients}" th:value="${ingredient.id}" />
+              <label class="form-check-label" for="|ingredient-${ingredient.id}|">[[${ingredient.name}]]</label>
+            </div>
+            
+            <div th:unless="${ingredients.size() != 0}">
+              <h3>No ingredients found</h3>
+            </div>
+          </div>
+          
           <div class="col-12">
             <label for="imgUrl" class="form-label">Image Url</label>
             <input
-              type="text"
-              class="form-control"
-              id="imgUrl"
-              th:field="*{imgUrl}"
-              th:errorClass="is-invalid"
+            type="text"
+            class="form-control"
+            id="imgUrl"
+            th:field="*{imgUrl}"
+            th:errorClass="is-invalid"
             />
             <div
-              class="invalid-feedback"
-              th:if="${#fields.hasErrors('imgUrl')}"
+            class="invalid-feedback"
+            th:if="${#fields.hasErrors('imgUrl')}"
             >
-              <ul>
-                <li
-                  th:each="error : ${#fields.errors('imgUrl')}"
-                  th:text="${error}"
-                ></li>
-              </ul>
-            </div>
+            <ul>
+              <li
+              th:each="error : ${#fields.errors('imgUrl')}"
+              th:text="${error}"
+              ></li>
+            </ul>
           </div>
-
-          <div class="col-12">
-            <label for="description" class="form-label">Description</label>
-            <textarea
-              class="form-control"
-              id="description"
+        </div>
+        
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+          class="form-control"
+          id="description"
               th:field="*{description}"
               th:errorClass="is-invalid"
-            ></textarea>
-            <div
+              ></textarea>
+              <div
               class="invalid-feedback"
               th:if="${#fields.hasErrors('description')}"
-            >
+              >
               <ul>
                 <li
-                  th:each="error : ${#fields.errors('description')}"
-                  th:text="${error}"
+                th:each="error : ${#fields.errors('description')}"
+                th:text="${error}"
                 ></li>
               </ul>
             </div>
           </div>
-
+          
           <div class="mt-4">
             <button type="submit" class="btn btn-success">Save</button>
           </div>
         </form>
       </main>
     </div>
-
+    
     <!-- Scripts -->
     <th:block th:replace="~{fragments/fragments :: scripts}" />
   </body>
-</html>
+  </html>
+  
